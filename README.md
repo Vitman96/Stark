@@ -1,5 +1,8 @@
 # Stark
 
+## Projekt
+Wer wird Millionär? (Game of Thrones)
+
 ## Mitglieder
 ### Product Owner
 [n4th4l1e](https://github.com/n4th4l1e)
