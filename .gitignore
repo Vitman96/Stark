@@ -153,3 +153,4 @@ hs_err_pid*
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,visualstudiocode
+.DS_Store
