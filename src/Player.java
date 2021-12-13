@@ -7,8 +7,8 @@ public class Player{
     //Creat Player Class with Custom Name
     public  class Player(String name)
     {
-      this.name = name;
-      cashLevel = 0;
+       this.name = name;
+       cashLevel = 0;
     }
 
     // Create Default Player Class if Player name is Set
@@ -38,7 +38,7 @@ public class Player{
     }
 
 
-    // Funktion to get Answer from Player
+    // Function to get Answer from Player
     public String getPlayerAnswer()
     {
         String answer ="";
