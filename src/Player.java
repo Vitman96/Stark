@@ -7,8 +7,8 @@ public class Player {
 
     //Creat Player Class with Custom Name
     public Player(String name) {
-       this.name = name;
-       this.cashLevel = 0;
+        this.name = name;
+        this.cashLevel = 0;
     }
 
     // Create Default Player Class if Player name is Set
