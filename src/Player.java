@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Player {
 
     public String name; //Name of Player for UI and Score  Board
@@ -7,13 +8,13 @@ public class Player {
     //Creat Player Class with Custom Name
     public Player(String name) {
        this.name = name;
-       cashLevel = 0;
+       this.cashLevel = 0;
     }
 
     // Create Default Player Class if Player name is Set
     public Player() {
         this.name = "Demo Player";
-        cashLevel = 0;
+        this.cashLevel = 0;
     }
 
     // Get Player Name Value
@@ -29,13 +30,13 @@ public class Player {
     // Change cashLevel Value
 
     public void setCashLevel(int cashLevel) {
-        this.cashLevel= cashLevel;
+        this.cashLevel = cashLevel;
     }
 
 
     // Function to get Answer from Player
     public String getPlayerAnswer() {
-        String answer ="";
+        String answer = "";
         Scanner in = new Scanner(System.in);
         System.out.println("Deine Antwort ist:");
         answer = in.nextLine();
