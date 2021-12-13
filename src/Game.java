@@ -1,10 +1,11 @@
-public class Game{
+public class Game {
 
     /**
-     * Prints out the Question and the choices for answering
-     * @param question
+     * Prints out the Question and the choices for answering.
+     *
+     * @param question Question Object
      */
-    public void askQuestion(Question question){
+    public void askQuestion(Question question) {
         System.out.println(question.getQuestion());
         System.out.println("A: " + question.getAnswers[0]);
         System.out.println("B: " + question.getAnswers[1]);
