@@ -154,3 +154,9 @@ hs_err_pid*
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java,visualstudiocode
 .DS_Store
+src/Stark.iml
+src/.idea/checkstyle-idea.xml
+src/.idea/misc.xml
+src/.idea/modules.xml
+src/.idea/runConfigurations.xml
+src/.idea/vcs.xml
