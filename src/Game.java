@@ -1,5 +1,23 @@
 public class Game {
 
+
+
+    private boolean gameRunning = true;
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        Player player = new Player();
+        Question[] questions;
+
+        while (game.isGameRunning()){
+
+        }
+    }
+
+    public boolean isGameRunning() {
+        return gameRunning;
+    }
+
     /**
      * Prints out the Question and the choices for answering.
      *
