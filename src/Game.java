@@ -5,6 +5,7 @@ public class Game {
 
 
     private boolean gameRunning = true;
+    private boolean correctAnswer = true;
 
 
     public static void main(String[] args) {
@@ -82,7 +83,7 @@ public class Game {
         System.out.println("C: " + question.getAnswers()[2]);
         System.out.println("D: " + question.getAnswers()[3]);
     }
-
+    ‚
     /**
      * Terminate the Game.
      */
@@ -112,6 +113,9 @@ public class Game {
 
         //Welcome Player with his Name
         System.out.println("HERZLICH WILLKOMMEN " + player.getName());
+    }
 
+    public boolean isCorrectAnswer(Question question, Player player) {
+        return correctAnswer = (question.getRightAnswer() == player.getPlayerAnswer());
     }
 }
