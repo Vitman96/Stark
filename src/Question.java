@@ -8,7 +8,9 @@ public class Question {
     private File file;
 
     public Question() {
-
+        file = new File("C:\\Users\\User\\Desktop\\Just\\resource\\Questions.csv");
+        sc = new Scanner(file);
+        questions = sc.nextLine().split(";");
     }
 
     public String getQuestion() {
