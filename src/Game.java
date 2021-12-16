@@ -83,7 +83,7 @@ public class Game {
         System.out.println("C: " + question.getAnswers()[2]);
         System.out.println("D: " + question.getAnswers()[3]);
     }
-    ‚
+    
     /**
      * Terminate the Game.
      */
