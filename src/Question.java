@@ -20,4 +20,8 @@ public class Question {
     public String[] getAnswers() {
         return this.answers;
     }
+
+    public String getRightAnswer() {
+        return this.rightAnswer;
+    }
 }
