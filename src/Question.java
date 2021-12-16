@@ -14,14 +14,19 @@ public class Question {
     }
 
     public String getQuestion() {
+        question = questions[0]; // sets the value of question
         return this.question;
     }
 
     public String[] getAnswers() {
+        for (int i=0; i<4; i++) {
+            answers[i] = questions[i + 1];
+        }
         return this.answers;
     }
 
     public String getRightAnswer() {
+        rightAnswer = questions[questions.length - 1] ; // sets the value of right answer
         return this.rightAnswer;
     }
 }
