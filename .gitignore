@@ -160,3 +160,7 @@ src/.idea/misc.xml
 src/.idea/modules.xml
 src/.idea/runConfigurations.xml
 src/.idea/vcs.xml
+.idea/Stark.iml
+.idea/checkstyleidea-libs/readme.txt
+.idea/checkstyle-idea.xml
+.idea/
