@@ -133,7 +133,7 @@ public class Game {
            System.out.println("ENDE");
 
         }catch (Exception e) {
-            System.out.println("ERROR::"+e);
+            System.out.println("ERROR::" + e);
         }
 
     }

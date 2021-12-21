@@ -70,7 +70,7 @@ public class Question {
     }
 
     public String getRightAnswer() {
-        rightAnswer = questions.get(questionPos).get(5).toString(); // sets the value of right answer
+        rightAnswer = questions.get(questionPos).get(5).toString();
         return this.rightAnswer;
     }
 }
