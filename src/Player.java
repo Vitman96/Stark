@@ -39,7 +39,7 @@ public class Player {
         String answer = "";
         Scanner in = new Scanner(System.in);
         System.out.println("Deine Antwort ist:");
-        answer = in.nextLine();
+        answer = in.nextLine().toUpperCase();
 
         return answer;
     }
