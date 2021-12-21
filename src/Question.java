@@ -1,76 +1,48 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Question Class.
  */
 public class Question {
 
-    //private String question;    // The question to be asked
-    private List<String> question;    // The question to be asked
+    private String question;    // The question to be asked
     private String[] answers = new String[4];   // The choices for answering
     private String rightAnswer;   // The right answer either a, b, c, or d
-    List<List<String>> questions = new ArrayList<>();
-    private int questionPos = 1;
-    private Scanner sc;
-    private File file;
+    private static int counter = 1;
+    private int id;
 
-    public Question() throws FileNotFoundException {
-        //file = new File("C:\\Users\\User\\Desktop\\Just\\resource\\Questions.csv");
-        file = new File("../resources/Questions.csv");
-        sc = new Scanner(file);
-        while (sc.hasNextLine()) {
-            questions.add(getRecordFromLine(sc.nextLine()));
+
+    public Question(java.io.BufferedReader br) {
+        String[] temp = null;
+        try {
+            temp = br.readLine().split(";");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        //questions = sc.nextLine().split(";");
-
-
-    }
-
-    /**
-     *  reutrn all CSV Question and answers.
-     */
-    private List<String> getRecordFromLine(String line) {
-        List<String> values = new ArrayList<String>();
-        try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter(";");
-            while (rowScanner.hasNext()) {
-                values.add(rowScanner.next());
-            }
+        this.question = temp[0];
+        this.rightAnswer = temp[5];
+        for (int i = 0; i < 4; i++) {
+            this.answers[i] = temp[i + 1];
         }
-        return values;
+        this.id = counter;
+        counter++;
     }
 
     /**
      *  reutrn current Question.
      */
     public String getQuestion() {
-        question = questions.get(questionPos); // sets the value of question
-        return this.question.get(0).toString();
+        return this.question;
     }
 
     /**
      *  reutrn all Answer option of an Question.
      */
-
     public String[] getAnswers() {
-        for (int i = 0; i < 4; i++) {
-            //answers[i] = questions[i + 1];
-            answers[i]  = questions.get(questionPos).get(i + 1).toString();
-
-        }
         return this.answers;
     }
 
-    public void setQuestionPos() {
-        this.questionPos++;
-    }
-
     public String getRightAnswer() {
-        rightAnswer = questions.get(questionPos).get(5).toString();
         return this.rightAnswer;
     }
 }

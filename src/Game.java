@@ -1,35 +1,40 @@
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
 
-
-
-    private static boolean gameRunning = true;
-    private static boolean correctAnswer = true;
+    private boolean gameRunning = true;
+    private ArrayList<Question> questionSet;
+    private BufferedReader br = null;
+    private Player player;
 
 
     public static void main(String[] args) {
         Game game = new Game();
-        // MAYBE ERST DANN ERZEUGEN WENN SPIEL GESTARTET WIRD
-        /*Player player = new Player();
-        Question[] questions;*/
 
+        int menuInputValue = game.gameWelcomeMenuPrint();
+        game.gameModeSwitcher(menuInputValue);
 
+        game.gameLoop();
+    }
 
-        int menuInputValue = gameWelcomeMenuPrint();
-        gameModeSwitcher(menuInputValue);
-        //START GAME
-        /*while (game.isGameRunning()){
-             // TODO
-
-        }*/
+    private void gameLoop() {
+        for (Question i : questionSet) {
+            askQuestion(i);
+            if (!correctAnswer(i, player)) {
+                endGame();
+            }
+        }
     }
 
     /**
      * Print the Welcome Text and Game Menu.
      */
-    public static int gameWelcomeMenuPrint() {
+    public int gameWelcomeMenuPrint() {
 
         //GAME WELCOME MENUE
         System.out.println("############### HERZLICH WILLKOMMEN ZU ################");
@@ -53,7 +58,7 @@ public class Game {
      *
      * @param input int
      */
-    public static void gameModeSwitcher(int input) {
+    public  void gameModeSwitcher(int input) {
         switch (input) {
             case 1:
                 startGame();
@@ -67,17 +72,12 @@ public class Game {
         }
     }
 
-    public static boolean isGameRunning() {
-        return gameRunning;
-    }
-
-
     /**
      * Prints out the Question and the choices for answering.
      *
      * @param question Question Object
      */
-    public static void askQuestion(Question question) {
+    public void askQuestion(Question question) {
         System.out.println(question.getQuestion());
         System.out.println("A: " + question.getAnswers()[0]);
         System.out.println("B: " + question.getAnswers()[1]);
@@ -88,8 +88,9 @@ public class Game {
     /**
      * Terminate the Game.
      */
-    public static void endGame() {
+    public void endGame() {
         System.out.print("\n\n\n SPIEL BEENDET");
+        System.exit(0);
     }
 
 
@@ -103,41 +104,36 @@ public class Game {
     /**
      * Start the Game.
      */
-    public static void startGame() {
+    public void startGame() {
+
+        //Get Player Name
+        System.out.print("BITTE GEBEN SIE IHREN NAMEN EIN: ");
+        Scanner in = new Scanner(System.in);
+        String name = in.nextLine();
+        player = new Player(name);
+        //Welcome Player with his Name
+        System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
         try {
-            //Get Player Name
-            System.out.print("BITTE GEBEN SIE IHREN NAMEN EIN: ");
-            Scanner in = new Scanner(System.in);
-            String name = in.nextLine();
-            Player player = new Player(name);
-
-            //Welcome Player with his Name
-            System.out.println("HERZLICH WILLKOMMEN " + player.getName());
-
-            //LOAD QUESTION
-            Question question = new Question();
-
-            //START GAME
-            while (isGameRunning()) {
-                askQuestion(question);
-                if (correctAnswer(question, player)) {
-                    question.setQuestionPos();
-                } else {
-                    gameRunning = false;
-                }
-            }
-
-            System.out.println("ENDE");
-
-        } catch (Exception e) {
-            System.out.println("ERROR::" + e);
+            br = new BufferedReader(new FileReader("resources/Questions.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
+        // generate QuestionSet
+        questionSet = new ArrayList();
+        for (int i = 0; i < 3; i++) {
+            questionSet.add(new Question(br));
+        }
+
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private static boolean correctAnswer(Question question, Player player) {
+    private boolean correctAnswer(Question question, Player player) {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
     }
-
 }
