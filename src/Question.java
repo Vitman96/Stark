@@ -5,10 +5,10 @@ import java.io.IOException;
  */
 public class Question {
 
-    private String question;    // The question to be asked
+    private String question;                    // The question to be asked
     private String[] answers = new String[4];   // The choices for answering
-    private String rightAnswer;   // The right answer either a, b, c, or d
-    private static int counter = 1;
+    private String rightAnswer;                 // The right answer either a, b, c, or d
+    private static int counter = 1;             // What number this question ist
     private int id;
 
 
@@ -29,14 +29,14 @@ public class Question {
     }
 
     /**
-     *  reutrn current Question.
+     *  return current Question.
      */
     public String getQuestion() {
         return this.question;
     }
 
     /**
-     *  reutrn all Answer option of an Question.
+     *  return all Answer option of a Question.
      */
     public String[] getAnswers() {
         return this.answers;

@@ -54,7 +54,7 @@ public class Game {
     }
 
     /**
-     * Switch between the diffrent Game modes from Menu.
+     * Switch between the different Game modes from Menu.
      *
      * @param input int
      */
@@ -103,6 +103,7 @@ public class Game {
 
     /**
      * Start the Game.
+     * Generates a number of question objects and saves them in questionSet.
      */
     public void startGame() {
 
