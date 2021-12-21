@@ -119,20 +119,18 @@ public class Game {
             Question question = new Question();
 
             //START GAME
-            while (isGameRunning())
-            {
+            while (isGameRunning()) {
                 askQuestion(question);
-                if(correctAnswer(question,player))
-                {
-                   question.setQuestionPos();
-                }else
-                {
+                if (correctAnswer(question, player)) {
+                    question.setQuestionPos();
+                } else {
                     gameRunning = false;
                 }
             }
-           System.out.println("ENDE");
 
-        }catch (Exception e) {
+            System.out.println("ENDE");
+
+        } catch (Exception e) {
             System.out.println("ERROR::" + e);
         }
 
