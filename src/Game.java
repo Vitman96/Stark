@@ -1,11 +1,12 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Game {
 
 
 
-    private boolean gameRunning = true;
-    private boolean correctAnswer = true;
+    private static boolean gameRunning = true;
+    private static boolean correctAnswer = true;
 
 
     public static void main(String[] args) {
@@ -19,10 +20,10 @@ public class Game {
         int menuInputValue = gameWelcomeMenuPrint();
         gameModeSwitcher(menuInputValue);
         //START GAME
-        while (game.isGameRunning()){
+        /*while (game.isGameRunning()){
              // TODO
 
-        }
+        }*/
     }
 
     /**
@@ -66,7 +67,7 @@ public class Game {
         }
     }
 
-    public boolean isGameRunning() {
+    public static boolean isGameRunning() {
         return gameRunning;
     }
 
@@ -76,14 +77,14 @@ public class Game {
      *
      * @param question Question Object
      */
-    public void askQuestion(Question question) {
+    public static void askQuestion(Question question) {
         System.out.println(question.getQuestion());
         System.out.println("A: " + question.getAnswers()[0]);
         System.out.println("B: " + question.getAnswers()[1]);
         System.out.println("C: " + question.getAnswers()[2]);
         System.out.println("D: " + question.getAnswers()[3]);
     }
-    
+
     /**
      * Terminate the Game.
      */
@@ -104,18 +105,41 @@ public class Game {
      */
     public static void startGame() {
 
+        try {
+            //Get Player Name
+            System.out.print("BITTE GEBEN SIE IHREN NAMEN EIN: ");
+            Scanner in = new Scanner(System.in);
+            String name = in.nextLine();
+            Player player = new Player(name);
 
-        //Get Player Name
-        System.out.print("BITTE GEBEN SIE IHREN NAMEN EIN: ");
-        Scanner in = new Scanner(System.in);
-        String name = in.nextLine();
-        Player player = new Player(name);
+            //Welcome Player with his Name
+            System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
-        //Welcome Player with his Name
-        System.out.println("HERZLICH WILLKOMMEN " + player.getName());
+            //LOAD QUESTION
+            Question question = new Question();
+
+            //START GAME
+            while (isGameRunning())
+            {
+                askQuestion(question);
+                if(correctAnswer(question,player))
+                {
+                   question.setQuestionPos();
+                }else
+                {
+                    gameRunning = false;
+                }
+            }
+           System.out.println("ENDE");
+
+        }catch (Exception e) {
+            System.out.println("ERROR::"+e);
+        }
+
     }
 
-    public boolean isCorrectAnswer(Question question, Player player) {
-        return correctAnswer = (question.getRightAnswer() == player.getPlayerAnswer());
+    private static boolean correctAnswer(Question question, Player player) {
+        return (question.getRightAnswer().equals(player.getPlayerAnswer()));
     }
+
 }
