@@ -3,13 +3,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Game {
 
     private boolean gameRunning = true;
     private ArrayList<Question> questionSet;
+    private ArrayList<Player>  players;
     private BufferedReader br = null;
+    private BufferedReader leaderBoardBuffer = null;
     private Player player;
 
 
@@ -97,8 +100,33 @@ public class Game {
     /**
      * Show High Score Board.
      */
-    public static void showScoreBoard() {
-        System.out.print("\n\n\n SCORE BOARD");
+    public void showScoreBoard() {
+        System.out.println("\n\n\n SCORE BOARD");
+        //Load Score DB
+        try {
+            leaderBoardBuffer = new BufferedReader(new FileReader("../resources/Leaderboard.csv"));
+            String row = "";
+            players = new ArrayList<>();
+            while ((row = leaderBoardBuffer.readLine()) != null) {
+                String[] data = row.split(";");
+                int ranking = Integer.parseInt(data[1]);
+                String playersName = data[2].toString();
+                int cashLevel = Integer.parseInt(data[3]);
+                players.add(new Player(playersName, cashLevel, ranking));
+
+                // do something with the data
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        players.sort(Comparator.comparing(a -> a.rangking));
+
+        for (Player pos : players) {
+            System.out.println(pos.rangking + "\t" + pos.name + "\t" + pos.cashLevel);
+        }
+
     }
 
     /**
@@ -116,7 +144,7 @@ public class Game {
         System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
         try {
-            br = new BufferedReader(new FileReader("resources/Questions.csv"));
+            br = new BufferedReader(new FileReader("../resources/Questions.csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
