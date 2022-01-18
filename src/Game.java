@@ -36,6 +36,10 @@ public class Game {
         }
     }
 
+    /**
+     * Calculate the amount of money.
+     * @param correctAnswer boolean
+     */
     private void getValue(boolean correctAnswer) {
         if (!correctAnswer) {
             if (value < 500) {
@@ -53,7 +57,9 @@ public class Game {
         System.out.println("Your money : " + value);
     }
 
-
+    /**
+     * Show the price Table.
+     */
     private void showTable() {
         System.out.format("+-----------------+----------+%n");
         System.out.format("| Values          | Position |%n");
