@@ -25,11 +25,14 @@ public class Game {
     }
 
     private void gameLoop() {
+        showTable();
         for (Question i : questionSet) {
             askQuestion(i);
             if (!correctAnswer(i, player)) {
+                getValue(false);
                 endGame();
             }
+            getValue(true);
         }
     }
 
