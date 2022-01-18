@@ -46,6 +46,7 @@ public class Game {
             value = value + values[position];
             position++;
         }
+        showTable();
         System.out.println("Your money : " + value);
     }
 
