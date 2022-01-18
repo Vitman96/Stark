@@ -11,7 +11,9 @@ public class Game {
     private ArrayList<Question> questionSet;
     private BufferedReader br = null;
     private Player player;
-
+    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 500_000, 1_000_000};
+    private int value = 0;
+    private static int position = 0;
 
     public static void main(String[] args) {
         Game game = new Game();
@@ -30,6 +32,23 @@ public class Game {
             }
         }
     }
+
+    private void getValue(boolean correctAnswer) {
+        if (!correctAnswer) {
+            if (value < 500) {
+                value = 0;
+            } else if (value < 16000) {
+                value = 500;
+            } else {
+                value = 16000;
+            }
+        } else {
+            value = value + values[position];
+            position++;
+        }
+        System.out.println("Your money : " + value);
+    }
+
 
     /**
      * Print the Welcome Text and Game Menu.
