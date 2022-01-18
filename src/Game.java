@@ -50,6 +50,21 @@ public class Game {
     }
 
 
+    private void showTable() {
+        System.out.format("+-----------------+----------+%n");
+        System.out.format("| Values          | Position |%n");
+        System.out.format("+-----------------+----------+%n");
+        for (int i = values.length - 1; i >= 0; i--) {
+            if (i == position) {
+                System.out.printf("| %-15d | %-8s |%n", values[i], "<<<<<<<<");
+            } else {
+                System.out.printf("| %-15d | %-8s |%n", values[i], "");
+            }
+        }
+        System.out.format("+-----------------+----------+%n");
+    }
+
+
     /**
      * Print the Welcome Text and Game Menu.
      */
