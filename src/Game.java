@@ -30,9 +30,11 @@ public class Game {
             askQuestion(i);
             if (!correctAnswer(i, player)) {
                 getValue(false);
+                answerFeedback(false);
                 endGame();
             }
             getValue(true);
+            answerFeedback(true);
         }
     }
 
@@ -180,5 +182,13 @@ public class Game {
 
     private boolean correctAnswer(Question question, Player player) {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
+    }
+
+    private void answerFeedback(boolean correctAnswer) {
+        if (correctAnswer) {
+            System.out.println("Ihre Antwort war richtig!");
+        } else {
+            System.out.println("Ihre Antwort war leider falsch!");
+        }
     }
 }
