@@ -182,6 +182,25 @@ public class Game {
         }
     }
 
+    /**
+     * This functions reads in a whole file using a Buffered Reader.
+     *
+     * @param path The path of the file to be read.
+     * @return ArrayList with each line of the file.
+     */
+    public ArrayList<String> readWholeFile(String path) {
+        ArrayList<String> allLines = new ArrayList<>();
+        try {
+            br = new BufferedReader(new FileReader(path));
+            while (br.readLine() != null) {
+                allLines.add(br.readLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return allLines;
+    }
+
     private boolean correctAnswer(Question question, Player player) {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
     }
