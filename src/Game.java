@@ -11,7 +11,8 @@ public class Game {
     private ArrayList<Question> questionSet;
     private BufferedReader br = null;
     private Player player;
-    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 500_000, 1_000_000};
+    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000,
+                            16000, 32000, 64000, 125000, 500_000, 1_000_000};
     private int value = 0;
     private static int position = 0;
 
@@ -40,6 +41,7 @@ public class Game {
 
     /**
      * Calculate the amount of money.
+     *
      * @param correctAnswer boolean
      */
     private void getValue(boolean correctAnswer) {
