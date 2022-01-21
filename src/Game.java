@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
 
@@ -199,6 +200,16 @@ public class Game {
             e.printStackTrace();
         }
         return allLines;
+    }
+
+    public ArrayList<String> pickRandomMember(ArrayList<String> originalList, int pickNumber) {
+        ArrayList<String> newList = new ArrayList<>();
+        for (int i = 0; i < pickNumber; i++) {
+            int randomInt = ThreadLocalRandom.current().nextInt(0, originalList.size());
+            newList.add(originalList.get(randomInt));
+            originalList.remove(randomInt);
+        }
+        return newList;
     }
 
     private boolean correctAnswer(Question question, Player player) {
