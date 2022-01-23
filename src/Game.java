@@ -13,7 +13,11 @@ public class Game {
     private BufferedReader br = null;
     private BufferedReader leaderBoardBuffer = null;
     private Player player;
-    private int [] caseLevels = {100,200,400,500,1000,2000,5000,10000,20000,30000,50000,100000,200000,500000,1000000};
+    private int [] caseLevels = {100, 200, 400, 500,
+                                 1000, 2000, 5000,
+                                 10000, 20000, 30000,
+                                 50000, 100000, 200000,
+                                 500000, 1000000};
     private int currentLevel = 0;
     public static void main(String[] args) {
         Game game = new Game();
@@ -25,16 +29,18 @@ public class Game {
     }
 
     private void gameLoop() {
-        for (Question i : questionSet) {
-            askQuestion(i);
-            if (!correctAnswer(i, player)) {
-                endGame();
-            }else
-            {
-                player.cashLevel = caseLevels[currentLevel];
-                currentLevel++;
+        if (questionSet != null) {
+            for (Question i : questionSet) {
+                askQuestion(i);
+                if (!correctAnswer(i, player)) {
+                    endGame();
+                } else {
+                    player.cashLevel = caseLevels[currentLevel];
+                    currentLevel++;
+                }
             }
         }
+
     }
 
     /**
@@ -124,32 +130,41 @@ public class Game {
      * Generates a number of question objects and saves them in questionSet.
      */
 
-    public void writeScoreBoard()
-    {
+    public void writeScoreBoard() {
         //load Player Rank
         loadLoaderboard();
 
         int ranking = 0;
         // calc current Player level
         for (Player pos : players) {
-          if(player.cashLevel < pos.cashLevel)
-          {
-              player.ranking = pos.ranking;
-              ranking = pos.ranking;
-          }
+            if (ranking == 0) {
+                if (player.cashLevel > pos.cashLevel) {
+                    player.ranking = pos.ranking;
+                    ranking = pos.ranking + 1;
+                    pos.ranking = ranking;
+                }
+            } else if (ranking != 0) {
+                ranking = ranking + 1;
+                pos.ranking = ranking;
+            }
         }
+
+        if (ranking == 0) {
+            player.ranking = players.size();
+        }
+
+
 
         players.add(player);
 
 
 
         try {
-            File file = new File("../resources/Test.csv");
+            File file = new File("../resources/Leaderboard.csv");
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            for (Player pos : players)
-            {
-                bw.write(pos.ranking+";"+pos.name+";"+pos.cashLevel);
+            for (Player pos : players) {
+                bw.write(pos.ranking + ";" + pos.name + ";" + pos.cashLevel);
                 bw.newLine();
             }
 
@@ -198,16 +213,16 @@ public class Game {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
     }
 
-    private void loadLoaderboard(){
+    private void loadLoaderboard() {
         try {
             leaderBoardBuffer = new BufferedReader(new FileReader("../resources/Leaderboard.csv"));
             String row = "";
             players = new ArrayList<>();
             while ((row = leaderBoardBuffer.readLine()) != null) {
                 String[] data = row.split(";");
-                int ranking = Integer.parseInt(data[1]);
-                String playersName = data[2].toString();
-                int cashLevel = Integer.parseInt(data[3]);
+                int ranking = Integer.parseInt(data[0]);
+                String playersName = data[1].toString();
+                int cashLevel = Integer.parseInt(data[2]);
                 players.add(new Player(playersName, cashLevel, ranking));
 
                 // do something with the data
