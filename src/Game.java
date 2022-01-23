@@ -1,10 +1,10 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -25,6 +25,7 @@ public class Game {
                                  50000, 100000, 200000,
                                  500000, 1000000};
     private int currentLevel = 0;
+
     public static void main(String[] args) {
         Game game = new Game();
 
