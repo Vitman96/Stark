@@ -164,23 +164,10 @@ public class Game {
         //Welcome Player with his Name
         System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
-        try {
-            br = new BufferedReader(new FileReader("resources/Questions.csv"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         // generate QuestionSet
-        questionSet = new ArrayList();
-        for (int i = 0; i < 3; i++) {
-            questionSet.add(new Question(br));
-        }
+        ArrayList<String> fileContent = readWholeFile("resources/Questions.csv");
+        questionSet = Question.generateQuestionSet(pickRandomMember(fileContent, 3));
 
-        try {
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

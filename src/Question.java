@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Question Class.
@@ -12,13 +13,9 @@ public class Question {
     private int id;
 
 
-    public Question(java.io.BufferedReader br) {
+    public Question(String questionLine) {
         String[] temp = null;
-        try {
-            temp = br.readLine().split(";");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        temp = questionLine.split(";");
         this.question = temp[0];
         this.rightAnswer = temp[5];
         for (int i = 0; i < 4; i++) {
