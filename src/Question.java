@@ -28,6 +28,14 @@ public class Question {
         counter++;
     }
 
+    public static ArrayList<Question> generateQuestionSet(ArrayList<String> questionList) {
+        ArrayList<Question> questionSet = new ArrayList<>();
+        for (int i = 0; i < questionList.size(); i++) {
+            questionSet.add(new Question(questionList.get(i)));
+        }
+        return questionSet;
+    }
+
     /**
      *  return current Question.
      */
