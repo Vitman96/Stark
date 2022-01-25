@@ -191,10 +191,11 @@ public class Game {
      */
     public ArrayList<String> readWholeFile(String path) {
         ArrayList<String> allLines = new ArrayList<>();
+        String line;
         try {
             br = new BufferedReader(new FileReader(path));
-            while (br.readLine() != null) {
-                allLines.add(br.readLine());
+            while ((line = br.readLine()) != null) {
+                allLines.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
