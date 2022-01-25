@@ -171,7 +171,7 @@ public class Game {
     }
 
     /**
-     * This functions reads in a whole file using a Buffered Reader.
+     * This function reads in a whole file using a Buffered Reader.
      *
      * @param path The path of the file to be read.
      * @return ArrayList with each line of the file.
@@ -190,6 +190,14 @@ public class Game {
         return allLines;
     }
 
+    /**
+     * Picks a number of random members out of an ArrayList and
+     * returns an ArrayList with the picked members.
+     *
+     * @param originalList An ArrayList of type String
+     * @param pickNumber The number of random members to pick
+     * @return An ArrayList with the picked members
+     */
     public ArrayList<String> pickRandomMember(ArrayList<String> originalList, int pickNumber) {
         ArrayList<String> newList = new ArrayList<>();
         for (int i = 0; i < pickNumber; i++) {

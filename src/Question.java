@@ -12,7 +12,13 @@ public class Question {
     private static int counter = 1;             // What number this question ist
     private int id;
 
-
+    /**
+     * An object representing a question. Contains a question, it's answers
+     * and the right answer to the question.
+     *
+     * @param questionLine String containing the question information in the format
+     *                     question;answerA;answerB;answerC;answerD;rightAnswer
+     */
     public Question(String questionLine) {
         String[] temp = null;
         temp = questionLine.split(";");
@@ -25,6 +31,13 @@ public class Question {
         counter++;
     }
 
+    /**
+     * Generates an ArrayList of Question Objects.
+     *
+     * @param questionList An ArrayList of Strings.
+     *                     Each String in the format necessary for a question object.
+     * @return An ArrayList of type Question
+     */
     public static ArrayList<Question> generateQuestionSet(ArrayList<String> questionList) {
         ArrayList<Question> questionSet = new ArrayList<>();
         for (int i = 0; i < questionList.size(); i++) {
