@@ -1,3 +1,7 @@
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class Player {
@@ -60,6 +64,18 @@ public class Player {
             case "c":
             case "d":
                 valid = true;
+                break;
+            case "HELP":
+                Desktop desktop = java.awt.Desktop.getDesktop();
+                try {
+                    desktop.browse(new URI("https://de.wikihow.com/Kl%C3%BCger-werden"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Versuchs doch nach diesen Tipps nochmal ;)");
+                valid = false;
                 break;
             default:
                 System.out.println("Ungültige Eingabe!");
