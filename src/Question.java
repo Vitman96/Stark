@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Question Class.
@@ -11,14 +12,16 @@ public class Question {
     private static int counter = 1;             // What number this question ist
     private int id;
 
-
-    public Question(java.io.BufferedReader br) {
+    /**
+     * An object representing a question. Contains a question, it's answers
+     * and the right answer to the question.
+     *
+     * @param questionLine String containing the question information in the format
+     *                     question;answerA;answerB;answerC;answerD;rightAnswer
+     */
+    public Question(String questionLine) {
         String[] temp = null;
-        try {
-            temp = br.readLine().split(";");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        temp = questionLine.split(";");
         this.question = temp[0];
         this.rightAnswer = temp[5];
         for (int i = 0; i < 4; i++) {
@@ -26,6 +29,21 @@ public class Question {
         }
         this.id = counter;
         counter++;
+    }
+
+    /**
+     * Generates an ArrayList of Question Objects.
+     *
+     * @param questionList An ArrayList of Strings.
+     *                     Each String in the format necessary for a question object.
+     * @return An ArrayList of type Question
+     */
+    public static ArrayList<Question> generateQuestionSet(ArrayList<String> questionList) {
+        ArrayList<Question> questionSet = new ArrayList<>();
+        for (int i = 0; i < questionList.size(); i++) {
+            questionSet.add(new Question(questionList.get(i)));
+        }
+        return questionSet;
     }
 
     /**

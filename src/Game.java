@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 
@@ -245,23 +246,52 @@ public class Game {
         //Welcome Player with his Name
         System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
-        try {
-            br = new BufferedReader(new FileReader("../resources/Questions.csv"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         // generate QuestionSet
-        questionSet = new ArrayList();
-        for (int i = 0; i < 3; i++) {
-            questionSet.add(new Question(br));
+        String path = "resources/Questions.csv";
+        if (System.getProperty("os.name").equals("Mac OS X")) {
+            path = "../" + path;
         }
+        ArrayList<String> fileContent = readWholeFile(path);
+        questionSet = Question.generateQuestionSet(pickRandomMember(fileContent, 15));
 
+    }
+
+    /**
+     * This function reads in a whole file using a Buffered Reader.
+     *
+     * @param path The path of the file to be read.
+     * @return ArrayList with each line of the file.
+     */
+    public ArrayList<String> readWholeFile(String path) {
+        ArrayList<String> allLines = new ArrayList<>();
+        String line;
         try {
-            br.close();
+            br = new BufferedReader(new FileReader(path));
+            while ((line = br.readLine()) != null) {
+                allLines.add(line);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return allLines;
+    }
+
+    /**
+     * Picks a number of random members out of an ArrayList and
+     * returns an ArrayList with the picked members.
+     *
+     * @param originalList An ArrayList of type String
+     * @param pickNumber The number of random members to pick
+     * @return An ArrayList with the picked members
+     */
+    public ArrayList<String> pickRandomMember(ArrayList<String> originalList, int pickNumber) {
+        ArrayList<String> newList = new ArrayList<>();
+        for (int i = 0; i < pickNumber; i++) {
+            int randomInt = ThreadLocalRandom.current().nextInt(0, originalList.size());
+            newList.add(originalList.get(randomInt));
+            originalList.remove(randomInt);
+        }
+        return newList;
     }
 
     private boolean correctAnswer(Question question, Player player) {
