@@ -166,7 +166,7 @@ public class Game {
 
         // generate QuestionSet
         String path = "resources/Questions.csv";
-        if (System.getProperty("os.name") == "Mac OS X") {
+        if (System.getProperty("os.name").equals("Mac OS X")) {
             path = "../" + path;
         }
         ArrayList<String> fileContent = readWholeFile(path);
