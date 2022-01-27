@@ -11,7 +11,8 @@ public class Game {
     private ArrayList<Question> questionSet;
     private BufferedReader br = null;
     private Player player;
-    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000, 16000, 32000, 64000, 125000, 500_000, 1_000_000};
+    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000,
+                            16000, 32000, 64000, 125000, 500_000, 1_000_000};
     private int value = 0;
     private static int position = 0;
 
@@ -30,14 +31,17 @@ public class Game {
             askQuestion(i);
             if (!correctAnswer(i, player)) {
                 getValue(false);
+                answerFeedback(false);
                 endGame();
             }
             getValue(true);
+            answerFeedback(true);
         }
     }
 
     /**
      * Calculate the amount of money.
+     *
      * @param correctAnswer boolean
      */
     private void getValue(boolean correctAnswer) {
@@ -180,5 +184,13 @@ public class Game {
 
     private boolean correctAnswer(Question question, Player player) {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
+    }
+
+    private void answerFeedback(boolean correctAnswer) {
+        if (correctAnswer) {
+            System.out.println("Ihre Antwort war richtig!");
+        } else {
+            System.out.println("Ihre Antwort war leider falsch!");
+        }
     }
 }
