@@ -5,6 +5,7 @@ public class Player {
     public String name; //Name of Player for UI and Score  Board
     public int cashLevel; //How much Cash has Player won currently
     public int ranking;
+
     //Create Player Class with Custom Name
     public Player(String name) {
         this.name = name;
