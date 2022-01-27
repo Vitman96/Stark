@@ -19,6 +19,7 @@ public class Game {
     private BufferedReader br = null;
     private BufferedReader leaderBoardBuffer = null;
     private Player player;
+    private String leadBoardSrc = "resources/Leaderboard.csv";
 
     private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000,
                             16000, 32000, 64000, 125000, 500_000, 1_000_000};
@@ -210,7 +211,11 @@ public class Game {
 
 
         try {
-            File file = new File("../resources/Leaderboard.csv");
+            String path = leadBoardSrc;
+            if (System.getProperty("os.name").equals("Mac OS X")) {
+                path = "../" + path;
+            }
+            File file = new File(path);
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
             for (Player pos : players) {
@@ -266,7 +271,11 @@ public class Game {
 
     private void loadLoaderboard() {
         try {
-            leaderBoardBuffer = new BufferedReader(new FileReader("../resources/Leaderboard.csv"));
+            String path = leadBoardSrc;
+            if (System.getProperty("os.name").equals("Mac OS X")) {
+                path = "../" + path;
+            }
+            leaderBoardBuffer = new BufferedReader(new FileReader(path));
             String row = "";
             players = new ArrayList<>();
             while ((row = leaderBoardBuffer.readLine()) != null) {
