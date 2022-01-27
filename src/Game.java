@@ -65,7 +65,7 @@ public class Game {
                 value = 16000;
             }
         } else {
-            value = value + values[position];
+            value = values[position];
             position++;
         }
         showTable();
@@ -171,7 +171,7 @@ public class Game {
         for (Player pos : players) {
             System.out.printf("%-3d %-20s %-10d\n", pos.ranking, pos.name, pos.cashLevel);
         }
-
+        System.exit(0);
     }
 
     /**
