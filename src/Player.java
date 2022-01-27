@@ -4,17 +4,27 @@ public class Player {
 
     public String name; //Name of Player for UI and Score  Board
     public int cashLevel; //How much Cash has Player won currently
+    public int ranking;
 
     //Create Player Class with Custom Name
     public Player(String name) {
         this.name = name;
         this.cashLevel = 0;
+        this.ranking = 0;
+
     }
 
     // Create Default Player Class if Player name is Set
     public Player() {
         this.name = "Demo Player";
         this.cashLevel = 0;
+        this.ranking = 0;
+    }
+
+    public Player(String name, int cashLevel, int rangking) {
+        this.name = name;
+        this.cashLevel = cashLevel;
+        this.ranking = rangking;
     }
 
     // Get Player Name Value
