@@ -165,7 +165,11 @@ public class Game {
         System.out.println("HERZLICH WILLKOMMEN " + player.getName());
 
         // generate QuestionSet
-        ArrayList<String> fileContent = readWholeFile("resources/Questions.csv");
+        String path = "resources/Questions.csv";
+        if (System.getProperty("os.name") == "Mac OS X") {
+            path = "../" + path;
+        }
+        ArrayList<String> fileContent = readWholeFile(path);
         questionSet = Question.generateQuestionSet(pickRandomMember(fileContent, 3));
 
     }
