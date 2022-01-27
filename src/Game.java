@@ -285,8 +285,8 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-  }
     private void answerFeedback(boolean correctAnswer) {
         if (correctAnswer) {
             System.out.println("Ihre Antwort war richtig!");
