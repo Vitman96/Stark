@@ -49,7 +49,44 @@ public class Player {
         Scanner in = new Scanner(System.in);
         System.out.println("Deine Antwort ist:");
         answer = in.nextLine().toUpperCase();
+        if (validAnswer(answer)) {
+            return answer;
+        } else {
+            return changeAnswer(answer);
+        }
+    }
 
-        return answer;
+    // Checks if the given answer was valid
+    public boolean validAnswer(String answer) {
+        boolean valid = false;
+        switch (answer) {
+            case "A":
+            case "B":
+            case "C":
+            case "D":
+            case "a":
+            case "b":
+            case "c":
+            case "d":
+                valid = true;
+                break;
+            default:
+                System.out.println("Ungültige Eingabe!");
+                valid = false;
+                break;
+        }
+        return valid;
+    }
+
+    // Lets the player change his answer, the new answer will also be checked if it is valid
+    public String changeAnswer(String answer) {
+        System.out.println("Neue Eingabe:");
+        Scanner in = new Scanner(System.in);
+        answer = in.nextLine().toUpperCase();
+        if (validAnswer(answer)) {
+            return answer;
+        } else {
+            return changeAnswer(answer);
+        }
     }
 }

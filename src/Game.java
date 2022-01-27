@@ -19,12 +19,11 @@ public class Game {
     private BufferedReader br = null;
     private BufferedReader leaderBoardBuffer = null;
     private Player player;
-    private int [] caseLevels = {100, 200, 400, 500,
-                                 1000, 2000, 5000,
-                                 10000, 20000, 30000,
-                                 50000, 100000, 200000,
-                                 500000, 1000000};
-    private int currentLevel = 0;
+
+    private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000,
+                            16000, 32000, 64000, 125000, 500_000, 1_000_000};
+    private int value = 0;
+    private static int position = 0;
 
     public static void main(String[] args) {
         Game game = new Game();
@@ -36,6 +35,7 @@ public class Game {
     }
 
     private void gameLoop() {
+
         if (questionSet != null) {
             for (Question i : questionSet) {
                 askQuestion(i);
@@ -45,10 +45,60 @@ public class Game {
                     player.cashLevel = caseLevels[currentLevel];
                     currentLevel++;
                 }
+
+        showTable();
+        for (Question i : questionSet) {
+            askQuestion(i);
+            if (!correctAnswer(i, player)) {
+                getValue(false);
+                answerFeedback(false);
+                endGame();
+            }
+            getValue(true);
+            answerFeedback(true);
+        }
+    }
+
+    /**
+     * Calculate the amount of money.
+     *
+     * @param correctAnswer boolean
+     */
+    private void getValue(boolean correctAnswer) {
+        if (!correctAnswer) {
+            if (value < 500) {
+                value = 0;
+            } else if (value < 16000) {
+                value = 500;
+            } else {
+                value = 16000;
+            }
+        } else {
+            value = value + values[position];
+            position++;
+        }
+        showTable();
+        System.out.println("Your money : " + value);
+    }
+
+    /**
+     * Show the price Table.
+     */
+    private void showTable() {
+        System.out.format("+-----------------+----------+%n");
+        System.out.format("| Values          | Position |%n");
+        System.out.format("+-----------------+----------+%n");
+        for (int i = values.length - 1; i >= 0; i--) {
+            if (i == position) {
+                System.out.printf("| %-15d | %-8s |%n", values[i], "<<<<<<<<");
+            } else {
+                System.out.printf("| %-15d | %-8s |%n", values[i], "");
             }
         }
 
+        System.out.format("+-----------------+----------+%n");
     }
+
 
     /**
      * Print the Welcome Text and Game Menu.
@@ -220,6 +270,7 @@ public class Game {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
     }
 
+
     private void loadLoaderboard() {
         try {
             leaderBoardBuffer = new BufferedReader(new FileReader("../resources/Leaderboard.csv"));
@@ -242,5 +293,12 @@ public class Game {
             e.printStackTrace();
         }
 
+
+    private void answerFeedback(boolean correctAnswer) {
+        if (correctAnswer) {
+            System.out.println("Ihre Antwort war richtig!");
+        } else {
+            System.out.println("Ihre Antwort war leider falsch!");
+        }
     }
 }
