@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Game {
 
     private boolean gameRunning = true;
-    private ArrayList<Question> questionSet;
+    private ArrayList<Question> questionSet = new ArrayList<>();
     private ArrayList<Player>  players;
     private BufferedReader br = null;
     private BufferedReader leaderBoardBuffer = null;
@@ -35,17 +35,6 @@ public class Game {
     }
 
     private void gameLoop() {
-
-        if (questionSet != null) {
-            for (Question i : questionSet) {
-                askQuestion(i);
-                if (!correctAnswer(i, player)) {
-                    endGame();
-                } else {
-                    player.cashLevel = caseLevels[currentLevel];
-                    currentLevel++;
-                }
-
         showTable();
         for (Question i : questionSet) {
             askQuestion(i);
@@ -119,6 +108,7 @@ public class Game {
         System.out.print("\n\n\nIHRE EINGABE: ");
         Scanner in = new Scanner(System.in);
         int input = in.nextInt();
+
         return  input;
     }
 
@@ -192,6 +182,8 @@ public class Game {
         loadLoaderboard();
 
         int ranking = 0;
+
+        player.cashLevel = value;
         // calc current Player level
         for (Player pos : players) {
             if (ranking == 0) {
@@ -213,6 +205,7 @@ public class Game {
 
 
         players.add(player);
+
 
 
 
@@ -293,7 +286,7 @@ public class Game {
             e.printStackTrace();
         }
 
-
+  }
     private void answerFeedback(boolean correctAnswer) {
         if (correctAnswer) {
             System.out.println("Ihre Antwort war richtig!");
