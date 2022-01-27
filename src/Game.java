@@ -1,17 +1,27 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+
+
 
 public class Game {
 
     private boolean gameRunning = true;
-    private ArrayList<Question> questionSet;
+    private ArrayList<Question> questionSet = new ArrayList<>();
+    private ArrayList<Player>  players;
     private BufferedReader br = null;
+    private BufferedReader leaderBoardBuffer = null;
     private Player player;
+    private String leadBoardSrc = "resources/Leaderboard.csv";
+
     private int[] values = {50, 100, 200, 300, 500, 1000, 2000, 4000, 8000,
                             16000, 32000, 64000, 125000, 500_000, 1_000_000};
     private int value = 0;
@@ -76,6 +86,7 @@ public class Game {
                 System.out.printf("| %-15d | %-8s |%n", values[i], "");
             }
         }
+
         System.out.format("+-----------------+----------+%n");
     }
 
@@ -99,6 +110,7 @@ public class Game {
         System.out.print("\n\n\nIHRE EINGABE: ");
         Scanner in = new Scanner(System.in);
         int input = in.nextInt();
+
         return  input;
     }
 
@@ -139,6 +151,7 @@ public class Game {
      */
     public void endGame() {
         System.out.print("\n\n\n SPIEL BEENDET");
+        writeScoreBoard();
         System.exit(0);
     }
 
@@ -146,8 +159,77 @@ public class Game {
     /**
      * Show High Score Board.
      */
-    public static void showScoreBoard() {
-        System.out.print("\n\n\n SCORE BOARD");
+    public void showScoreBoard() {
+        System.out.println("\n\n\n SCORE BOARD");
+        //Load Score DB
+        loadLoaderboard();
+
+
+
+
+
+        for (Player pos : players) {
+            System.out.println(pos.ranking + "\t" + pos.name + "\t" + pos.cashLevel);
+        }
+
+    }
+
+    /**
+     * Write new leaderboadr CSV with current Player
+     * Generates a number of question objects and saves them in questionSet.
+     */
+
+    public void writeScoreBoard() {
+        //load Player Rank
+        loadLoaderboard();
+
+        int ranking = 0;
+
+        player.cashLevel = value;
+        // calc current Player level
+        for (Player pos : players) {
+            if (ranking == 0) {
+                if (player.cashLevel > pos.cashLevel) {
+                    player.ranking = pos.ranking;
+                    ranking = pos.ranking + 1;
+                    pos.ranking = ranking;
+                }
+            } else if (ranking != 0) {
+                ranking = ranking + 1;
+                pos.ranking = ranking;
+            }
+        }
+
+        if (ranking == 0) {
+            player.ranking = players.size();
+        }
+
+
+
+        players.add(player);
+
+
+
+
+        try {
+            String path = leadBoardSrc;
+            if (System.getProperty("os.name").equals("Mac OS X")) {
+                path = "../" + path;
+            }
+            File file = new File(path);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (Player pos : players) {
+                bw.write(pos.ranking + ";" + pos.name + ";" + pos.cashLevel);
+                bw.newLine();
+            }
+
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -170,7 +252,7 @@ public class Game {
             path = "../" + path;
         }
         ArrayList<String> fileContent = readWholeFile(path);
-        questionSet = Question.generateQuestionSet(pickRandomMember(fileContent, 3));
+        questionSet = Question.generateQuestionSet(pickRandomMember(fileContent, 15));
 
     }
 
@@ -214,6 +296,34 @@ public class Game {
 
     private boolean correctAnswer(Question question, Player player) {
         return (question.getRightAnswer().equals(player.getPlayerAnswer()));
+    }
+
+
+    private void loadLoaderboard() {
+        try {
+            String path = leadBoardSrc;
+            if (System.getProperty("os.name").equals("Mac OS X")) {
+                path = "../" + path;
+            }
+            leaderBoardBuffer = new BufferedReader(new FileReader(path));
+            String row = "";
+            players = new ArrayList<>();
+            while ((row = leaderBoardBuffer.readLine()) != null) {
+                String[] data = row.split(";");
+                int ranking = Integer.parseInt(data[0]);
+                String playersName = data[1].toString();
+                int cashLevel = Integer.parseInt(data[2]);
+                players.add(new Player(playersName, cashLevel, ranking));
+
+                // do something with the data
+            }
+
+            players.sort(Comparator.comparing(a -> a.ranking));
+            leaderBoardBuffer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void answerFeedback(boolean correctAnswer) {
