@@ -169,7 +169,7 @@ public class Game {
 
 
         for (Player pos : players) {
-            System.out.println(pos.ranking + "\t" + pos.name + "\t" + pos.cashLevel);
+            System.out.printf("%-3d %-20s %-10d\n", pos.ranking, pos.name, pos.cashLevel);
         }
 
     }
