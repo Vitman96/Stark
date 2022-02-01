@@ -3,6 +3,9 @@
 ## Projekt
 Wer wird Millionär? (Game of Thrones)
 
+## Wie kann ich das ausprobieren?
+Die Anleitung sowie Hilfe zum Ausprobieren findest du [*hier*](Documentation/Spieleanleitung.pdf)!
+
 ## Mitglieder
 ### Product Owner
 [n4th4l1e](https://github.com/n4th4l1e)
